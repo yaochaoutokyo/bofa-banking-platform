@@ -48,6 +48,10 @@ jobs:
           fail_ci_if_error: false
       - name: Coverage summary
         run: python3 ../../scripts/coverage-summary.py --service ledger-service --github-summary >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coverage-ledger-service
+          path: services/ledger-service/target/site/jacoco/jacoco.xml
 
   # -------------------------------------------------------------- Python ----
   fraud-detection-service:
@@ -74,6 +78,10 @@ jobs:
           fail_ci_if_error: false
       - name: Coverage summary
         run: python3 ../../scripts/coverage-summary.py --service fraud-detection-service --github-summary >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coverage-fraud-detection-service
+          path: services/fraud-detection-service/coverage.xml
 
   notification-service:
     name: notification-service (Python)
@@ -99,6 +107,10 @@ jobs:
           fail_ci_if_error: false
       - name: Coverage summary
         run: python3 ../../scripts/coverage-summary.py --service notification-service --github-summary >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coverage-notification-service
+          path: services/notification-service/coverage.xml
 
   # ---------------------------------------------------------- TypeScript ----
   account-service:
@@ -127,6 +139,10 @@ jobs:
           fail_ci_if_error: false
       - name: Coverage summary
         run: python3 ../../scripts/coverage-summary.py --service account-service --github-summary >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coverage-account-service
+          path: services/account-service/coverage/coverage-summary.json
 
   statement-service:
     name: statement-service (TypeScript)
@@ -154,6 +170,10 @@ jobs:
           fail_ci_if_error: false
       - name: Coverage summary
         run: python3 ../../scripts/coverage-summary.py --service statement-service --github-summary >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coverage-statement-service
+          path: services/statement-service/coverage/coverage-summary.json
 
   # ---------------------------------------------------------------- Gate ----
   # Required status check for branch protection on `main`.
@@ -175,3 +195,40 @@ jobs:
             echo "One or more test jobs failed."; exit 1
           fi
           echo "All configured test jobs passed."
+
+  # ---------------------------------------------------------- Scoreboard ----
+  # After a merge to main, regenerate the README badges/tables from the reports
+  # produced above (services without a CI job keep their committed baseline).
+  update-scoreboard:
+    name: Update README coverage scoreboard
+    runs-on: ubuntu-latest
+    needs: ci-gate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.ci-gate.result == 'success'
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: coverage-*
+          path: .coverage-artifacts
+      - name: Place reports where coverage-summary.py expects them
+        run: |
+          set -e
+          install -D .coverage-artifacts/coverage-ledger-service/jacoco.xml services/ledger-service/target/site/jacoco/jacoco.xml
+          install -D .coverage-artifacts/coverage-fraud-detection-service/coverage.xml services/fraud-detection-service/coverage.xml
+          install -D .coverage-artifacts/coverage-notification-service/coverage.xml services/notification-service/coverage.xml
+          install -D .coverage-artifacts/coverage-account-service/coverage-summary.json services/account-service/coverage/coverage-summary.json
+          install -D .coverage-artifacts/coverage-statement-service/coverage-summary.json services/statement-service/coverage/coverage-summary.json
+      - name: Regenerate scoreboard
+        run: python3 scripts/coverage-summary.py --write
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- README.md scripts/coverage-baseline.json; then
+            echo "Scoreboard already up to date."; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md scripts/coverage-baseline.json
+          git commit -m "chore: update coverage scoreboard [skip ci]"
+          git push

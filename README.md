@@ -81,6 +81,10 @@ would be presented as evidence today. Mappings are detailed in
 python3 scripts/coverage-summary.py --write
 ```
 
+On every push to `main`, CI runs the same script against the reports from its
+test jobs and commits the refreshed badges/tables automatically, so the
+scoreboard above tracks `main` without manual steps.
+
 Services without a fresh report fall back to `scripts/coverage-baseline.json`;
 services without a test runner are counted at 0% against their real source
 line count. `--json` prints the raw numbers, and
