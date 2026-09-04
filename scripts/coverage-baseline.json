@@ -1,0 +1,50 @@
+{
+  "transaction-service": {
+    "covered": 113,
+    "total": 703
+  },
+  "auth-service": {
+    "covered": 122,
+    "total": 645
+  },
+  "payments-gateway": {
+    "covered": 0,
+    "total": 368
+  },
+  "ledger-service": {
+    "covered": 102,
+    "total": 209
+  },
+  "pii-vault-service": {
+    "covered": 0,
+    "total": 504
+  },
+  "audit-logging-service": {
+    "covered": 134,
+    "total": 517
+  },
+  "fraud-detection-service": {
+    "covered": 152,
+    "total": 287
+  },
+  "notification-service": {
+    "covered": 165,
+    "total": 204
+  },
+  "customer-portal-api": {
+    "covered": 18,
+    "total": 266
+  },
+  "account-service": {
+    "covered": 141,
+    "total": 144
+  },
+  "statement-service": {
+    "covered": 93,
+    "total": 181
+  },
+  "kyc-service": {
+    "covered": 0,
+    "total": 437
+  }
+}

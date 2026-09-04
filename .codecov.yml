@@ -1,0 +1,139 @@
+# Codecov configuration for the banking platform monorepo.
+# Compliance-critical paths carry high targets so they surface as
+# "below target" in every PR until coverage is remediated.
+
+codecov:
+  require_ci_to_pass: true
+
+coverage:
+  precision: 1
+  round: down
+  range: "30...90"
+
+  status:
+    project:
+      default:
+        target: 80%
+        threshold: 1%
+
+      # ---- Compliance-critical (OCC / SOX / PCI / GLBA) ----
+      transaction-service:
+        target: 90%
+        threshold: 0.5%
+        flags: [transaction-service]
+        paths: [services/transaction-service/]
+      auth-service:
+        target: 90%
+        threshold: 0.5%
+        flags: [auth-service]
+        paths: [services/auth-service/]
+      payments-gateway:
+        target: 90%
+        threshold: 0.5%
+        flags: [payments-gateway]
+        paths: [services/payments-gateway/]
+      pii-vault-service:
+        target: 95%
+        threshold: 0.5%
+        flags: [pii-vault-service]
+        paths: [services/pii-vault-service/]
+      audit-logging-service:
+        target: 95%
+        threshold: 0.5%
+        flags: [audit-logging-service]
+        paths: [services/audit-logging-service/]
+      kyc-service:
+        target: 90%
+        threshold: 0.5%
+        flags: [kyc-service]
+        paths: [services/kyc-service/]
+
+      # ---- Core business ----
+      ledger-service:
+        target: 80%
+        threshold: 1%
+        flags: [ledger-service]
+        paths: [services/ledger-service/]
+      fraud-detection-service:
+        target: 80%
+        threshold: 1%
+        flags: [fraud-detection-service]
+        paths: [services/fraud-detection-service/]
+      customer-portal-api:
+        target: 80%
+        threshold: 1%
+        flags: [customer-portal-api]
+        paths: [services/customer-portal-api/]
+      statement-service:
+        target: 80%
+        threshold: 1%
+        flags: [statement-service]
+        paths: [services/statement-service/]
+
+      # ---- Supporting ----
+      account-service:
+        target: 80%
+        threshold: 1%
+        flags: [account-service]
+        paths: [services/account-service/]
+      notification-service:
+        target: 80%
+        threshold: 1%
+        flags: [notification-service]
+        paths: [services/notification-service/]
+
+    patch:
+      default:
+        target: 90%
+        threshold: 0%
+
+flags:
+  transaction-service:
+    paths: [services/transaction-service/]
+    carryforward: true
+  auth-service:
+    paths: [services/auth-service/]
+    carryforward: true
+  payments-gateway:
+    paths: [services/payments-gateway/]
+    carryforward: true
+  ledger-service:
+    paths: [services/ledger-service/]
+    carryforward: true
+  pii-vault-service:
+    paths: [services/pii-vault-service/]
+    carryforward: true
+  audit-logging-service:
+    paths: [services/audit-logging-service/]
+    carryforward: true
+  fraud-detection-service:
+    paths: [services/fraud-detection-service/]
+    carryforward: true
+  notification-service:
+    paths: [services/notification-service/]
+    carryforward: true
+  customer-portal-api:
+    paths: [services/customer-portal-api/]
+    carryforward: true
+  account-service:
+    paths: [services/account-service/]
+    carryforward: true
+  statement-service:
+    paths: [services/statement-service/]
+    carryforward: true
+  kyc-service:
+    paths: [services/kyc-service/]
+    carryforward: true
+
+comment:
+  layout: "header, flags, diff, files"
+  behavior: default
+  require_changes: false
+
+ignore:
+  - "**/test/**"
+  - "**/tests/**"
+  - "**/__tests__/**"
+  - "**/*.test.ts"
+  - "**/dist/**"
+  - "**/node_modules/**"

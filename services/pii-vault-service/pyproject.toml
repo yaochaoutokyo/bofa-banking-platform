@@ -1,0 +1,14 @@
+[project]
+name = "pii-vault-service"
+version = "0.4.2"
+description = "Tokenization and masking vault for customer PII (SSN, PAN, DOB, contact data)."
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.110,<1",
+    "pydantic>=2.6,<3",
+    "uvicorn>=0.29,<1",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"

@@ -1,0 +1,29 @@
+# Ownership map for the banking platform monorepo.
+# Every PR touching a compliance-critical service requires review from
+# the owning team AND the risk & controls group.
+
+*                                   @bofa-platform/core-engineering
+
+# Java
+/services/transaction-service/      @bofa-platform/payments-core @bofa-platform/risk-controls
+/services/auth-service/             @bofa-platform/identity @bofa-platform/risk-controls
+/services/payments-gateway/         @bofa-platform/payments-core @bofa-platform/risk-controls
+/services/ledger-service/           @bofa-platform/ledger
+
+# Python
+/services/pii-vault-service/        @bofa-platform/data-protection @bofa-platform/risk-controls
+/services/audit-logging-service/    @bofa-platform/observability @bofa-platform/risk-controls
+/services/fraud-detection-service/  @bofa-platform/fraud
+/services/notification-service/     @bofa-platform/customer-experience
+
+# TypeScript
+/services/customer-portal-api/      @bofa-platform/customer-experience
+/services/account-service/          @bofa-platform/core-engineering
+/services/statement-service/        @bofa-platform/customer-experience
+/services/kyc-service/              @bofa-platform/identity @bofa-platform/risk-controls
+
+# Platform tooling
+/.github/                           @bofa-platform/developer-productivity
+/.codecov.yml                       @bofa-platform/developer-productivity @bofa-platform/risk-controls
+/scripts/                           @bofa-platform/developer-productivity
+/COMPLIANCE.md                      @bofa-platform/risk-controls
