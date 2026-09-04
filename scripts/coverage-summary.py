@@ -33,7 +33,6 @@ SERVICES_DIR = ROOT / "services"
 README = ROOT / "README.md"
 BASELINE = ROOT / "scripts" / "coverage-baseline.json"
 
-CODECOV_BADGE = "https://codecov.io/gh/yaochaoutokyo/bofa-banking-platform/branch/main/graph/badge.svg"
 
 
 @dataclass(frozen=True)
@@ -184,7 +183,6 @@ def render_badges(results: dict[str, Coverage]) -> str:
     parts = [
         badge("overall coverage", f"{avg:.0f}% avg", color),
         badge("lines covered", f"{total.covered} of {total.total} ({total.pct:.0f}%)", color),
-        f"![codecov]({CODECOV_BADGE})",
     ]
     lines = [" ".join(parts), ""]
     for tier, title in (("compliance-critical", "Compliance-critical"), ("core", "Core"), ("supporting", "Supporting")):

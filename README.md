@@ -6,7 +6,7 @@
 > compliance-critical services ahead of a regulatory examination.
 
 <!-- coverage-badges:start -->
-![overall coverage](https://img.shields.io/badge/overall%20coverage-33%25%20avg-red) ![lines covered](https://img.shields.io/badge/lines%20covered-1040%20of%204465%20%2823%25%29-red) ![codecov](https://codecov.io/gh/yaochaoutokyo/bofa-banking-platform/branch/main/graph/badge.svg)
+![overall coverage](https://img.shields.io/badge/overall%20coverage-33%25%20avg-red) ![lines covered](https://img.shields.io/badge/lines%20covered-1040%20of%204465%20%2823%25%29-red)
 
 **Compliance-critical:** ![transaction-service](https://img.shields.io/badge/transaction--service-16%25-red) ![auth-service](https://img.shields.io/badge/auth--service-19%25-red) ![payments-gateway](https://img.shields.io/badge/payments--gateway-tests%20not%20configured-lightgrey) ![pii-vault-service](https://img.shields.io/badge/pii--vault--service-tests%20not%20configured-lightgrey) ![audit-logging-service](https://img.shields.io/badge/audit--logging--service-26%25-orange) ![kyc-service](https://img.shields.io/badge/kyc--service-tests%20not%20configured-lightgrey)
 
