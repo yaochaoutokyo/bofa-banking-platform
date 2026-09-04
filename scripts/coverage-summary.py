@@ -33,7 +33,7 @@ SERVICES_DIR = ROOT / "services"
 README = ROOT / "README.md"
 BASELINE = ROOT / "scripts" / "coverage-baseline.json"
 
-CODECOV_BADGE = "https://codecov.io/gh/bofa-demo/bofa-banking-platform/branch/main/graph/badge.svg"
+CODECOV_BADGE = "https://codecov.io/gh/yaochaoutokyo/bofa-banking-platform/branch/main/graph/badge.svg"
 
 
 @dataclass(frozen=True)
