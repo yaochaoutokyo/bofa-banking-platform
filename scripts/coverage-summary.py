@@ -34,7 +34,6 @@ README = ROOT / "README.md"
 BASELINE = ROOT / "scripts" / "coverage-baseline.json"
 
 
-
 @dataclass(frozen=True)
 class ServiceSpec:
     name: str
