@@ -1,10 +1,9 @@
 # Monorepo CI.
 #
 # Only services with a configured test runner have a job here. Services without
-# one (payments-gateway, pii-vault-service, kyc-service) and several
-# compliance-critical services (transaction-service, auth-service,
-# audit-logging-service, customer-portal-api) have NO test job and are therefore
-# not gated by CI today.
+# one (payments-gateway, pii-vault-service) and several compliance-critical
+# services (transaction-service, auth-service, audit-logging-service,
+# customer-portal-api) have NO test job and are therefore not gated by CI today.
 
 name: CI
 
@@ -175,6 +174,37 @@ jobs:
           name: coverage-statement-service
           path: services/statement-service/coverage/coverage-summary.json
 
+  kyc-service:
+    name: kyc-service (TypeScript)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/kyc-service
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: services/kyc-service/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - name: Test with coverage
+        run: npm test -- --coverage
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          files: services/kyc-service/coverage/lcov.info
+          flags: kyc-service
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
+      - name: Coverage summary
+        run: python3 ../../scripts/coverage-summary.py --service kyc-service --github-summary >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coverage-kyc-service
+          path: services/kyc-service/coverage/coverage-summary.json
+
   # ---------------------------------------------------------------- Gate ----
   # Required status check for branch protection on `main`.
   ci-gate:
@@ -186,6 +216,7 @@ jobs:
       - notification-service
       - account-service
       - statement-service
+      - kyc-service
     if: always()
     steps:
       - name: Fail if any test job failed
@@ -220,6 +251,7 @@ jobs:
           install -D .coverage-artifacts/coverage-notification-service/coverage.xml services/notification-service/coverage.xml
           install -D .coverage-artifacts/coverage-account-service/coverage-summary.json services/account-service/coverage/coverage-summary.json
           install -D .coverage-artifacts/coverage-statement-service/coverage-summary.json services/statement-service/coverage/coverage-summary.json
+          install -D .coverage-artifacts/coverage-kyc-service/coverage-summary.json services/kyc-service/coverage/coverage-summary.json
       - name: Regenerate scoreboard
         run: python3 scripts/coverage-summary.py --write
       - name: Commit if changed

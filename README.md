@@ -6,9 +6,9 @@
 > compliance-critical services ahead of a regulatory examination.
 
 <!-- coverage-badges:start -->
-![overall coverage](https://img.shields.io/badge/overall%20coverage-33%25%20avg-red) ![lines covered](https://img.shields.io/badge/lines%20covered-1040%20of%204465%20%2823%25%29-red)
+![overall coverage](https://img.shields.io/badge/overall%20coverage-36%25%20avg-red) ![lines covered](https://img.shields.io/badge/lines%20covered-1105%20of%204270%20%2826%25%29-red)
 
-**Compliance-critical:** ![transaction-service](https://img.shields.io/badge/transaction--service-16%25-red) ![auth-service](https://img.shields.io/badge/auth--service-19%25-red) ![payments-gateway](https://img.shields.io/badge/payments--gateway-tests%20not%20configured-lightgrey) ![pii-vault-service](https://img.shields.io/badge/pii--vault--service-tests%20not%20configured-lightgrey) ![audit-logging-service](https://img.shields.io/badge/audit--logging--service-26%25-orange) ![kyc-service](https://img.shields.io/badge/kyc--service-tests%20not%20configured-lightgrey)
+**Compliance-critical:** ![transaction-service](https://img.shields.io/badge/transaction--service-16%25-red) ![auth-service](https://img.shields.io/badge/auth--service-19%25-red) ![payments-gateway](https://img.shields.io/badge/payments--gateway-tests%20not%20configured-lightgrey) ![pii-vault-service](https://img.shields.io/badge/pii--vault--service-tests%20not%20configured-lightgrey) ![audit-logging-service](https://img.shields.io/badge/audit--logging--service-26%25-orange) ![kyc-service](https://img.shields.io/badge/kyc--service-27%25-orange)
 
 **Core:** ![ledger-service](https://img.shields.io/badge/ledger--service-49%25-yellow) ![fraud-detection-service](https://img.shields.io/badge/fraud--detection--service-53%25-yellow) ![customer-portal-api](https://img.shields.io/badge/customer--portal--api-7%25-red) ![account-service](https://img.shields.io/badge/account--service-98%25-brightgreen)
 
@@ -33,8 +33,8 @@ The scoreboard below is generated from real coverage reports by
 <!-- coverage-table:start -->
 | Service | Stack | Tier | Line coverage | Target | Gap | CI test job | Status |
 |---|---|---|---:|---:|---:|:---:|---|
-| **Overall — average across 12 services** | — | — | **33.3%** | 80% | -47 pts | 5 of 12 | 🔴 critical gap |
-| **Overall — line-weighted** (1,040 / 4,465 lines) | — | — | **23.3%** | 80% | -57 pts | | |
+| **Overall — average across 12 services** | — | — | **35.5%** | 80% | -44 pts | 6 of 12 | 🔴 critical gap |
+| **Overall — line-weighted** (1,105 / 4,270 lines) | — | — | **25.9%** | 80% | -54 pts | | |
 | [`transaction-service`](services/transaction-service) | Java | compliance-critical | 16.1% | 90% | -74 pts | — | 🔴 critical gap |
 | [`auth-service`](services/auth-service) | Java | compliance-critical | 18.9% | 90% | -71 pts | — | 🔴 critical gap |
 | [`payments-gateway`](services/payments-gateway) | Java | compliance-critical | 0.0% | 90% | -90 pts | — | ⚫ no runner |
@@ -46,7 +46,7 @@ The scoreboard below is generated from real coverage reports by
 | [`customer-portal-api`](services/customer-portal-api) | TypeScript | core | 6.8% | 80% | -73 pts | — | 🔴 critical gap |
 | [`account-service`](services/account-service) | TypeScript | core | 97.9% | 80% | -0 pts | ✅ | 🟢 at target |
 | [`statement-service`](services/statement-service) | TypeScript | supporting | 51.4% | 80% | -29 pts | ✅ | 🟡 below target |
-| [`kyc-service`](services/kyc-service) | TypeScript | compliance-critical | 0.0% | 90% | -90 pts | — | ⚫ no runner |
+| [`kyc-service`](services/kyc-service) | TypeScript | compliance-critical | 26.9% | 90% | -63 pts | ✅ | 🔴 critical gap |
 <!-- coverage-table:end -->
 
 Targets come from [`.codecov.yml`](.codecov.yml): 90–95% for compliance-critical
@@ -65,7 +65,7 @@ would be presented as evidence today. Mappings are detailed in
 |---|---|---|---:|---:|---:|---|
 | Transaction processing | `transaction-service`, `payments-gateway` | OCC exam · SOX 404 · Reg E · BSA/AML · PCI-DSS · NACHA · OCC payments risk | 90% | 10.6% | -79 pts | 🔴 Not exam-ready |
 | Authentication | `auth-service` | FFIEC Authentication · SOX ITGC · PCI-DSS 8 | 90% | 18.9% | -71 pts | 🔴 Not exam-ready |
-| PII handling | `pii-vault-service`, `kyc-service` | GLBA 501(b) · PCI-DSS 3.4 · Reg P · BSA/AML CIP · FinCEN CDD · OFAC | 95% | 0.0% | -95 pts | 🔴 Not exam-ready |
+| PII handling | `pii-vault-service`, `kyc-service` | GLBA 501(b) · PCI-DSS 3.4 · Reg P · BSA/AML CIP · FinCEN CDD · OFAC | 95% | 8.7% | -86 pts | 🔴 Not exam-ready |
 | Audit logging | `audit-logging-service` | SOX 404 · OCC auditability · BSA recordkeeping | 95% | 25.9% | -69 pts | 🔴 Not exam-ready |
 <!-- compliance-table:end -->
 
