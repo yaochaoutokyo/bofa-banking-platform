@@ -58,7 +58,7 @@ SERVICES: list[ServiceSpec] = [
     ServiceSpec("customer-portal-api", "TypeScript", "core", 80, True, False, "Reg E · UDAAP", "Customer-facing API"),
     ServiceSpec("account-service", "TypeScript", "core", 80, True, True, "Reg DD · Escheatment", "Account CRUD (golden reference)"),
     ServiceSpec("statement-service", "TypeScript", "supporting", 80, True, True, "Reg DD · Reg E disclosures", "Statement generation"),
-    ServiceSpec("kyc-service", "TypeScript", "compliance-critical", 90, False, False, "BSA/AML CIP · FinCEN CDD · OFAC", "KYC / identity"),
+    ServiceSpec("kyc-service", "TypeScript", "compliance-critical", 90, True, True, "BSA/AML CIP · FinCEN CDD · OFAC", "KYC / identity"),
 ]
 
 COMPLIANCE_PATHS: list[tuple[str, list[str]]] = [
@@ -210,10 +210,11 @@ def status_icon(spec: ServiceSpec, pct: float) -> str:
 def render_coverage_table(results: dict[str, Coverage]) -> str:
     total = overall(results)
     avg = mean_pct(results)
+    in_ci = sum(1 for spec in SERVICES if spec.in_ci)
     lines = [
         "| Service | Stack | Tier | Line coverage | Target | Gap | CI test job | Status |",
         "|---|---|---|---:|---:|---:|:---:|---|",
-        f"| **Overall — average across 12 services** | — | — | **{avg:.1f}%** | 80% | -{max(0.0, 80 - avg):.0f} pts | 5 of 12 | {'🔴 critical gap' if avg < 40 else '🟡 below target'} |",
+        f"| **Overall — average across 12 services** | — | — | **{avg:.1f}%** | 80% | -{max(0.0, 80 - avg):.0f} pts | {in_ci} of {len(SERVICES)} | {'🔴 critical gap' if avg < 40 else '🟡 below target'} |",
         f"| **Overall — line-weighted** ({total.covered:,} / {total.total:,} lines) | — | — | **{total.pct:.1f}%** | 80% | -{max(0.0, 80 - total.pct):.0f} pts | | |",
     ]
     for spec in SERVICES:
