@@ -6,11 +6,11 @@
 > compliance-critical services ahead of a regulatory examination.
 
 <!-- coverage-badges:start -->
-![overall coverage](https://img.shields.io/badge/overall%20coverage-33%25%20avg-red) ![lines covered](https://img.shields.io/badge/lines%20covered-1040%20of%204465%20%2823%25%29-red)
+![overall coverage](https://img.shields.io/badge/overall%20coverage-37%25%20avg-red) ![lines covered](https://img.shields.io/badge/lines%20covered-1175%20of%204465%20%2826%25%29-red)
 
 **Compliance-critical:** ![transaction-service](https://img.shields.io/badge/transaction--service-16%25-red) ![auth-service](https://img.shields.io/badge/auth--service-19%25-red) ![payments-gateway](https://img.shields.io/badge/payments--gateway-tests%20not%20configured-lightgrey) ![pii-vault-service](https://img.shields.io/badge/pii--vault--service-tests%20not%20configured-lightgrey) ![audit-logging-service](https://img.shields.io/badge/audit--logging--service-26%25-orange) ![kyc-service](https://img.shields.io/badge/kyc--service-tests%20not%20configured-lightgrey)
 
-**Core:** ![ledger-service](https://img.shields.io/badge/ledger--service-49%25-yellow) ![fraud-detection-service](https://img.shields.io/badge/fraud--detection--service-53%25-yellow) ![customer-portal-api](https://img.shields.io/badge/customer--portal--api-7%25-red) ![account-service](https://img.shields.io/badge/account--service-98%25-brightgreen)
+**Core:** ![ledger-service](https://img.shields.io/badge/ledger--service-49%25-yellow) ![fraud-detection-service](https://img.shields.io/badge/fraud--detection--service-100%25-brightgreen) ![customer-portal-api](https://img.shields.io/badge/customer--portal--api-7%25-red) ![account-service](https://img.shields.io/badge/account--service-98%25-brightgreen)
 
 **Supporting:** ![notification-service](https://img.shields.io/badge/notification--service-81%25-brightgreen) ![statement-service](https://img.shields.io/badge/statement--service-51%25-yellow)
 <!-- coverage-badges:end -->
@@ -33,15 +33,15 @@ The scoreboard below is generated from real coverage reports by
 <!-- coverage-table:start -->
 | Service | Stack | Tier | Line coverage | Target | Gap | CI test job | Status |
 |---|---|---|---:|---:|---:|:---:|---|
-| **Overall — average across 12 services** | — | — | **33.3%** | 80% | -47 pts | 5 of 12 | 🔴 critical gap |
-| **Overall — line-weighted** (1,040 / 4,465 lines) | — | — | **23.3%** | 80% | -57 pts | | |
+| **Overall — average across 12 services** | — | — | **37.2%** | 80% | -43 pts | 5 of 12 | 🔴 critical gap |
+| **Overall — line-weighted** (1,175 / 4,465 lines) | — | — | **26.3%** | 80% | -54 pts | | |
 | [`transaction-service`](services/transaction-service) | Java | compliance-critical | 16.1% | 90% | -74 pts | — | 🔴 critical gap |
 | [`auth-service`](services/auth-service) | Java | compliance-critical | 18.9% | 90% | -71 pts | — | 🔴 critical gap |
 | [`payments-gateway`](services/payments-gateway) | Java | compliance-critical | 0.0% | 90% | -90 pts | — | ⚫ no runner |
 | [`ledger-service`](services/ledger-service) | Java | core | 48.8% | 80% | -31 pts | ✅ | 🟡 below target |
 | [`pii-vault-service`](services/pii-vault-service) | Python | compliance-critical | 0.0% | 95% | -95 pts | — | ⚫ no runner |
 | [`audit-logging-service`](services/audit-logging-service) | Python | compliance-critical | 25.9% | 95% | -69 pts | — | 🔴 critical gap |
-| [`fraud-detection-service`](services/fraud-detection-service) | Python | core | 53.0% | 80% | -27 pts | ✅ | 🟡 below target |
+| [`fraud-detection-service`](services/fraud-detection-service) | Python | core | 100.0% | 80% | -0 pts | ✅ | 🟢 at target |
 | [`notification-service`](services/notification-service) | Python | supporting | 80.9% | 80% | -0 pts | ✅ | 🟢 at target |
 | [`customer-portal-api`](services/customer-portal-api) | TypeScript | core | 6.8% | 80% | -73 pts | — | 🔴 critical gap |
 | [`account-service`](services/account-service) | TypeScript | core | 97.9% | 80% | -0 pts | ✅ | 🟢 at target |

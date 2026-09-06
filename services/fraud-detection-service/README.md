@@ -1,6 +1,6 @@
 # fraud-detection-service
 
-![coverage](https://img.shields.io/badge/coverage-~55%25-yellow) ![tier](https://img.shields.io/badge/tier-core-blue)
+![coverage](https://img.shields.io/badge/coverage-100%25-brightgreen) ![tier](https://img.shields.io/badge/tier-core-blue)
 
 Rule-based transaction risk scoring (amount, geography, velocity, device and
 channel rules) with fraud case management and SAR deadline tracking.
@@ -13,9 +13,12 @@ uvicorn app.main:app --port 8106
 pytest
 ```
 
-## Coverage gaps
+## Test layout
 
-Scoring rules for common signals are covered. Untested: velocity and
-structuring-pattern rules (need multi-transaction history), profile
-observation / moving average, and the entire case lifecycle
-(assign, notes, close, SAR-required enforcement, overdue detection).
+- `tests/test_scoring.py` — baseline single-transaction scoring signals.
+- `tests/test_scoring_rules.py` — velocity, structuring-pattern, amount-vs-average,
+  geo, device and channel rules; `AccountProfile` moving average and history pruning.
+- `tests/test_cases.py` — `CaseManager` lifecycle: open/dedupe, assign, notes, close,
+  SAR-required enforcement and SAR overdue detection.
+- `tests/test_routers.py` — FastAPI `TestClient` coverage of `/api/v1/risk` and
+  `/api/v1/cases`, including `CaseError` → HTTP status mapping.
